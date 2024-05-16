@@ -1,9 +1,22 @@
 {
-    //sourced from https://github.com/mrJohnHolt/VSCode-Snippets and built on top of.
+    // Sourced from https://github.com/mrJohnHolt/VSCode-Snippets and built on top of.
     // Snippets for DaVinci Resolve Fusion / Fusion Standalone
     // All code which goes into a node must have "UserControls = ordered() {}" Surrounding the additional code.
     // 
     // Labels and DropDown Section
+    "Gets&Sets":{
+        "prefix": "gns",
+        "body": [
+            "${1:Transform1}:SetAttrs( {${2|TOOLB_PassThrough =,LINKS_Name = 'NameHere'|} ${3|false,true|}})",
+            "${4:Transform1:GetInput('Size')}",
+            "${5:Transform1:SetInput('Size', 0.25)}",
+            "${6:Transform.Size:SetExpression(\"iff(Expression_1>0_, ifTrue_1, Fallback/Default_2)\")}",
+            "${7:Local expression = Transform.Size:GetExpression() --print(expression)}",
+            "${8:fusion:Execute(TextNodeName:GetInput('TextNestName'))--use in a btn Execute}",
+        ],
+        "description": "getters and setters for memory"
+    },
+    
     "Label": {
         "prefix": "l",
         "body": [
@@ -33,7 +46,7 @@
         "prefix": "nl",
         "body": [
             "--code for the label inside the node, must be in Tools (Bottom) Section Or a (uc) UserControls an include a Label (l) in Inputs",
-            "Label$1 = {        --must match label & Source in Inputs_inspector section",
+            "${1:NodeName} = {        --must match label & Source in Inputs_inspector section",
             "INP_Integer = false,",
             "LBLC_DropDownButton = ${2|true, false|},   --true = drop down, false = label",
             "LINKID_DataType = \"Number\",", 
@@ -42,9 +55,10 @@
             "INP_Passive = true,",
             "INP_External = false,",
             "INPID_InputControl = \"LabelControl\",",
-            "LINKS_Name = \"Label$1\",",
-            "Label$1 = Input {Value = ${5:1}, },     --Sets Default State-1=Open 0=Closed --MUST CUT THIS LINE Put inside -In the Parent NODEs INPUTS ={Paste_Here}",  
-            "}${6:,}",
+            "LINKS_Name = \"${1:NodeName}\",",
+            "ICS_ControlPage = \"${5:Controls}\",",
+            "${1:NodeName} = Input {Value = ${6:1}, },     --Sets Default State-1=Open 0=Closed --MUST CUT THIS LINE Put inside -In the Parent NODEs INPUTS ={Paste_Here}",  
+            "}${0:,}",
             ""
         ],
         "description": "NodeLabel"
