@@ -2,7 +2,12 @@
     // Sourced from https://github.com/mrJohnHolt/VSCode-Snippets and built on top of.
     // Snippets for DaVinci Resolve Fusion / Fusion Standalone
     // All code which goes into a node must have "UserControls = ordered() {}" Surrounding the additional code.
-    // 
+    
+    // VSCODE
+	// Placeholders can be nested, like ${1:another ${2:placeholder}}
+	// Placeholders can have choices as values${1|one,two,three|}
+	// https://code.visualstudio.com/docs/editor/userdefinedsnippets
+    
     // Labels and DropDown Section
     "Gets&Sets":{
         "prefix": "gns",
