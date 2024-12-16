@@ -55,7 +55,7 @@
             "INP_Passive = true,",
             "INP_External = false,",
             "INPID_InputControl = \"LabelControl\",",
-            "LINKS_Name = \"${1:NodeName}\",",
+            "LINKS_Name = \"${1:NodeName}\",    -- Can change Color etc with html <p style='color:red'>NAME</p>",
             "ICS_ControlPage = \"${5:Controls}\",",
             "${1:NodeName} = Input {Value = ${6:1}, },     --Sets Default State-1=Open 0=Closed --MUST CUT THIS LINE Put inside -In the Parent NODEs INPUTS ={Paste_Here}",  
             "}${0:,}",
@@ -142,10 +142,10 @@
             "Source = \"${1:LableName_EG}\",   -- The name of the object within the node chosen to expose, EG; Scale, Blend, Height",
             "Name = \"${4:name}\",   -- Name that Shows",
             "Page = \"${5:Controls}\",    --Inspector Page",
-            "\"${6:Default = 0,}\"           --<These are Other common controls that u dont need, depending on the item you want to extract to the edit page",
-            "\"${7:Height = 0.5,}\"       --UnQuote if Keeping",
-            "\"${8:Width = 0.5,}\"",
-            "\"${9:Expression = 'iif(Input23_EG == 0, 1, 0 )}\"     --UnQuote if Keeping",
+            "--${6:Default = 0,}           --<These are Other common controls that u dont need, depending on the item you want to extract to the edit page",
+            "--${7:Height = 0.5,}       --Uncomment if Keeping",
+            "--${8:Width = 0.5,}",
+            "--${9:Expression = 'iif(Input23_EG == 0, 1, 0 )}     --Uncomment if Keeping",
             "}${0:,} -- Trailing Comma needed?"
         ],
         "description": "To_View_an_Object_in_the_Inspector"
@@ -524,15 +524,40 @@
             ],
         "description": "Make another Tab in User Controls"
     },
-    
-    "UserControls_place_under_ViewInfos },": {
+
+    "htmlNameStyle2": {
+        "prefix": "html2",
+        "body": [
+            "${1|<p style='color:red'>NAME</p>, [[<h3>Test</h3>]], <h3><i>Test</i> <b><span style=\"color: #58ff0b\">NAME</span></b></h3>|}"
+        ],
+        "description": "Place in the LinksName of a Label to style the dropdown "
+    },
+
+    "HideSettingsPage": {
+        "prefix": "hsp",
+        "body": [
+            "UserControls = ordered() {",
+            "\t${1:Common} = ControlPage {\t-- Common is settings page",
+            "\t\tCT_Visible = ${2|false, true|},",
+            "\t\tCT_Priority = ${3|0,1|},\t--0=Hidden 1=Visible/Prio",
+            "\t\t${4:-- }CTID_DIB_ID = 'Icons.Tools.Tabs.${5:Transform}'\t --Choose the Icon, ico for snippets",
+            "},",
+            "\tUser = ControlPage {",
+            "\t\tCT_Visible = false,",
+            "\t\tCT_Priority = 0,",
+            "},",
+        ],
+        "description": "To hide the Settings (Any) Page of the macro\nPlace below the LAST , Comma in the code\n(excluding ActiveTool, go to Prev Comma)"
+    },
+
+    "UserControls": {
         "prefix": "uc",
         "body": [
             "UserControls = ordered() {",
             "${1:Code_Here}",
             "}",
         ],
-        "description": "UserControls"
+        "description": "UserControls _place_under_\nViewInfos = OperatorInfo {},\nIn a Nodes {} or after the LAST , Comma in the code\n(excluding ActiveTool go to Prev Comma) for Macro Controls"
     },
     "Version Comments": {
         "prefix": "tag",
@@ -581,7 +606,7 @@
         "description": "Name"
     },
     "Website Node": {
-        "prefix": "nbtn",
+        "prefix": "wbtn",
         "body": [
             "ScriptButton = {",
             "ICD_Width = 1,",
@@ -860,7 +885,7 @@
   "description": "LogoLabel"
 },
 "HTML Label": {
-  "prefix": "hnl",
+  "prefix": "html1",
   "body": [
     "HTML$1 = {",
     "  INP_Integer = false,",
@@ -1009,5 +1034,12 @@
     "}"
 ],
 "description": "Common Hide"
+},
+"ListOfIconsForFusion_tab_Complete": {
+    "prefix": "ico",
+    "body": [
+        "Icons.Tools.Tabs.${1|Controls,Custom,Text,Layout,Transform,Style,Image,Common,Color,Blur,Merge,Channels,Noise,Tracker,Circles,Operation,Display,XYZ,Material,Shader,Background,Projection,Render,CameraTracker,PlanarTracker,Region,Calculation,Gradient,MIDI,MIDIChannel,Offset,PolyLine,NumberProbe,Shake,Time,XYPath,pRegion,pSets,ColorChannels,AuxChannels,Crop,AutoCrop,ColorGain,Saturation,HotSpot,ColorScale,Grain,HueCurves,ChromaKeyer,CleanPlate,Spill,Ranges,Mask,Key,Matte,Primatte,Replace,Degrain,Numbers,Points,LUTs,Vertex,Red,Green,Blue,Alpha,Solve,Camera,WhiteBalance|}",
+    ],
+    "description": "--Here is a non-exhaustive list\nof the available\ncontrol page icon\nresources you can\ndefine in a CTID_DIB_ID tag:"
 }
 }
